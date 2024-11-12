@@ -23,7 +23,11 @@ const Signup = () => {
   const handleClickShowPassword = () => {
     setVisiblePw(!visiblePw);
   };
-  const [valueinput, setValueinput] = useState({ username: "", password: "" });
+  const [valueinput, setValueinput] = useState({
+    username: "",
+    password: "",
+    confirmvalue: "",
+  });
   const Handlesubmit = () => {
     const userData = {
       username: valueinput.username,
@@ -37,7 +41,14 @@ const Signup = () => {
       .catch(function (error) {
         console.log(error);
       });
+    setValueinput({ username: "", password: "", confirmvalue: "" });
   };
+  const list = [
+    { id: 1, name: "Google" },
+    { id: 2, name: "Facebook" },
+    { id: 3, name: "linkedin" },
+  ];
+
   return (
     <>
       <Grid container sx={{ height: "100vh" }} justifyContent={"center"}>
@@ -64,7 +75,7 @@ const Signup = () => {
               alignItems: "center",
             }}
           >
-            Logo
+            <Typography variant="h1">Logo</Typography>
           </Grid>
           <Grid
             item
@@ -148,11 +159,11 @@ const Signup = () => {
                   inputProps={{ minLength: 8 }}
                   type={visiblePw ? "text" : "password"}
                   label="Confirm Password"
-                  value={valueinput.password}
+                  value={valueinput.confirmvalue}
                   onChange={(event) =>
                     setValueinput({
                       ...valueinput,
-                      password: event.target.value,
+                      confirmvalue: event.target.value,
                     })
                   }
                 ></TextField>
@@ -161,7 +172,7 @@ const Signup = () => {
                   sx={{ color: "black", fontWeight: "700" }}
                   underline="none"
                 >
-                  Have account?
+                  Have account???
                 </Link>
               </Box>
               <FormGroup>
@@ -195,46 +206,32 @@ const Signup = () => {
                   sx={{ height: "0px", border: "1px solid black" }}
                 ></Box>
               </Box>
-              {/* <Button
+              <Box
+                width={"100%"}
                 sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  width: "100%",
-                  "&:hover": {
-                    color: "black",
-                    background: "#cccccc",
-                  },
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 1.5,
                 }}
               >
-                Google
-              </Button>
-              <Button
-                sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  width: "100%",
-                  "&:hover": {
-                    color: "black",
-                    background: "#cccccc",
-                  },
-                }}
-              >
-                Facebook
-              </Button>
-              <Button
-                sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  width: "100%",
-                  "&:hover": {
-                    color: "black",
-                    background: "#cccccc",
-                  },
-                }}
-                startIcon={<></>}
-              >
-                Github
-              </Button> */}
+                {list.map((item: { id: number; name: string }) => {
+                  return (
+                    <Button
+                      sx={{
+                        bgcolor: "gray",
+                        color: "white",
+                        width: "100%",
+                        "&:hover": {
+                          color: "black",
+                          background: "#cccccc",
+                        },
+                      }}
+                    >
+                      {item.name}
+                    </Button>
+                  );
+                })}
+              </Box>
             </Box>
           </Grid>
         </Grid>
