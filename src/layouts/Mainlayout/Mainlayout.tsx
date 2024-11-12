@@ -1,19 +1,24 @@
-import { Box } from "@mui/material"
-import Header from "../Header"
-import { Outlet } from "react-router-dom"
-import Footer from "../Footer"
-import Navbar from "../Navbar"
+import { Box } from "@mui/material";
+import Header from "../Header";
+import { Outlet } from "react-router-dom";
+import Footer from "../Footer";
+import Navbar from "../Navbar";
 
 const Mainlayout = () => {
-    return (
-        <>  
-           <Box>
-                <Header/>
-                <Navbar/>
-                <Outlet/>
-                <Footer/>
-           </Box>
-        </>
-    )
-}
-export default Mainlayout
+  return (
+    <>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          maxHeight: "fit-content",
+        }}
+      >
+        <Header />
+        <Navbar />
+        <Outlet />
+        <Footer />
+      </Box>
+    </>
+  );
+};
+export default Mainlayout;

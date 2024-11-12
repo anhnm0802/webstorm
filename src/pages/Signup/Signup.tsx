@@ -99,7 +99,7 @@ const Signup = () => {
               }}
             >
               <Typography variant="h6">
-                <Trans>Login</Trans>
+                <Trans>Sign_up</Trans>
               </Typography>
               <Box width={"100%"} sx={{ mt: 2, mb: 2 }}>
                 <Typography sx={{ mb: 1 }}>Email or phone number</Typography>
@@ -168,7 +168,7 @@ const Signup = () => {
                   }
                 ></TextField>
                 <Link
-                  href="/"
+                  href="/sign_in"
                   sx={{ color: "black", fontWeight: "700" }}
                   underline="none"
                 >

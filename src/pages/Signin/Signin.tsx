@@ -18,8 +18,12 @@ const Signin = () => {
   const handleClickShowPassword = () => {
     setVisiblePw(!visiblePw);
   };
-  const [valueinput, setValueinput] = useState("");
-
+  const [valueinput, setValueinput] = useState({ username: "", password: "" });
+  const list = [
+    { id: 1, name: "Google" },
+    { id: 2, name: "Facebook" },
+    { id: 3, name: "linkedin" },
+  ];
   return (
     <>
       <Grid container sx={{ height: "100vh" }} justifyContent={"center"}>
@@ -77,8 +81,13 @@ const Signin = () => {
                 <TextField
                   sx={{ width: "100%", my: 1 }}
                   label="username"
-                  value={valueinput}
-                  onChange={(event) => setValueinput(event.target.value)}
+                  value={valueinput.username}
+                  onChange={(event) =>
+                    setValueinput({
+                      ...valueinput,
+                      username: event.target.value,
+                    })
+                  }
                 />
                 <Typography sx={{ mb: 1 }}>Password</Typography>
                 <TextField
@@ -98,7 +107,13 @@ const Signin = () => {
                   }}
                   type={visiblePw ? "text" : "password"}
                   label="Password"
-                  onChange={(event) => setValueinput(event.target.value)}
+                  value={valueinput.password}
+                  onChange={(event) =>
+                    setValueinput({
+                      ...valueinput,
+                      password: event.target.value,
+                    })
+                  }
                 ></TextField>
                 <Link
                   href="/"
@@ -132,46 +147,32 @@ const Signin = () => {
                   sx={{ height: "0px", border: "1px solid black" }}
                 ></Box>
               </Box>
-              <Button
+              <Box
+                width={"100%"}
                 sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  width: "100%",
-                  "&:hover": {
-                    color: "black",
-                    background: "#cccccc",
-                  },
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 1.5,
                 }}
               >
-                Google
-              </Button>
-              <Button
-                sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  width: "100%",
-                  "&:hover": {
-                    color: "black",
-                    background: "#cccccc",
-                  },
-                }}
-              >
-                Facebook
-              </Button>
-              <Button
-                sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  width: "100%",
-                  "&:hover": {
-                    color: "black",
-                    background: "#cccccc",
-                  },
-                }}
-                startIcon={<></>}
-              >
-                Github
-              </Button>
+                {list.map((item: { id: number; name: string }) => {
+                  return (
+                    <Button
+                      sx={{
+                        bgcolor: "gray",
+                        color: "white",
+                        width: "100%",
+                        "&:hover": {
+                          color: "black",
+                          background: "#cccccc",
+                        },
+                      }}
+                    >
+                      {item.name}
+                    </Button>
+                  );
+                })}
+              </Box>
             </Box>
           </Grid>
         </Grid>
