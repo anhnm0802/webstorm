@@ -16,7 +16,7 @@ import { Trans } from "react-i18next";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import Checkbox from "@mui/material/Checkbox";
-import axios from "axios";
+import client from "../../service/api";
 
 const Signup = () => {
   const [visiblePw, setVisiblePw] = useState(false);
@@ -29,8 +29,8 @@ const Signup = () => {
       username: valueinput.username,
       password: valueinput.password,
     };
-    axios
-      .post("https://6731ddf77aaf2a9aff12855f.mockapi.io/sign_up", userData)
+    client
+      .post("/sign_up", userData)
       .then(function (response) {
         console.log(response);
       })
