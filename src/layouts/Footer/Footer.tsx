@@ -54,7 +54,7 @@ const Footer = () => {
               <Grid>Privacy Policy</Grid>
               <Grid>Terms & Conditions</Grid>
             </Grid>
-            <Grid>2024 by Nguyen Minh Anh</Grid>
+            <Grid>2024 by Nguyen Minh Anh Dev</Grid>
           </Grid>
         </Grid>
         <Grid
