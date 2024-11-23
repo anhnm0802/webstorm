@@ -102,9 +102,7 @@ const Signup = () => {
                 <Trans>Sign_up</Trans>
               </Typography>
               <Box width={"100%"} sx={{ mt: 2, mb: 2 }}>
-                <Typography sx={{ mb: 1 }}>
-                  Email or phone number 007
-                </Typography>
+                <Typography sx={{ mb: 1 }}>Email or phone number</Typography>
                 <TextField
                   sx={{ width: "100%", my: 1 }}
                   label="username"
