@@ -115,19 +115,28 @@ const Signin = () => {
                     })
                   }
                 ></TextField>
-                <Link
-                  href="/"
-                  sx={{ color: "black", fontWeight: "700" }}
-                  underline="none"
-                >
-                  Forgot Password??
-                </Link>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Link
+                    href="/"
+                    sx={{ color: "black", fontWeight: "700" }}
+                    underline="none"
+                  >
+                    Forgot Password??
+                  </Link>
+                  <Link
+                    href="/"
+                    sx={{ color: "black", fontWeight: "700" }}
+                    underline="none"
+                  >
+                    Signup Accout
+                  </Link>
+                </Box>
               </Box>
               <Button
                 sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  width: "100%",
+                  border: "1px solid black",
+                  color: "black",
+                  width: "80%",
                   "&:hover": {
                     color: "black",
                     background: "#cccccc",
@@ -152,6 +161,7 @@ const Signin = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
+                  alignItems: "center",
                   gap: 1.5,
                 }}
               >
@@ -159,9 +169,9 @@ const Signin = () => {
                   return (
                     <Button
                       sx={{
-                        bgcolor: "gray",
-                        color: "white",
-                        width: "100%",
+                        border: "1px solid black",
+                        color: "black",
+                        width: "80%",
                         "&:hover": {
                           color: "black",
                           background: "#cccccc",
