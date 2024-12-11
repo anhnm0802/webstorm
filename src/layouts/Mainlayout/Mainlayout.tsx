@@ -9,8 +9,8 @@ const Mainlayout = () => {
     <>
       <Box
         sx={{
-          minHeight: "100vh",
           maxHeight: "fit-content",
+          position: "relative",
         }}
       >
         <Header />

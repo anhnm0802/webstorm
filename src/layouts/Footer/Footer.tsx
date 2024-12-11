@@ -25,7 +25,7 @@ const Footer = () => {
           <Grid>Test</Grid>
           <Grid>Subscribe </Grid>
           <Grid container alignItems={"center"} justifyContent={"center"}>
-            <Grid flex={1}>
+            <Grid flex={0.8}>
               <TextField
                 sx={{ width: "90%" }}
                 placeholder="Your Email"
@@ -54,7 +54,7 @@ const Footer = () => {
               <Grid>Privacy Policy</Grid>
               <Grid>Terms & Conditions</Grid>
             </Grid>
-            <Grid>2024 by Nguyen Minh Anh Dev</Grid>
+            <Grid>hehehehe</Grid>
           </Grid>
         </Grid>
         <Grid

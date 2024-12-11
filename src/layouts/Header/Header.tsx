@@ -7,7 +7,15 @@ import Diversity1OutlinedIcon from "@mui/icons-material/Diversity1Outlined";
 const Header = () => {
   return (
     <>
-      <Grid container sx={{ height: "7rem", bgcolor: "gainsboro" }}>
+      <Grid
+        container
+        sx={{
+          height: "7rem",
+          bgcolor: "#874F41",
+          position: "sticky",
+          top: 0,
+        }}
+      >
         <Grid
           container
           item
