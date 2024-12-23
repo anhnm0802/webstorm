@@ -11,37 +11,57 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trans } from "react-i18next";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import Checkbox from "@mui/material/Checkbox";
-import client from "../../service/api";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import {
+  resetState,
+  setPassword,
+  setUsername,
+} from "../../redux/slices/authSlice";
 
 const Signup = () => {
   const [visiblePw, setVisiblePw] = useState(false);
   const handleClickShowPassword = () => {
     setVisiblePw(!visiblePw);
   };
-  const [valueinput, setValueinput] = useState({
-    username: "",
-    password: "",
-    confirmvalue: "",
-  });
-  const Handlesubmit = () => {
-    const userData = {
-      username: valueinput.username,
-      password: valueinput.password,
-    };
-    client
-      .post("/sign_up", userData)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    setValueinput({ username: "", password: "", confirmvalue: "" });
+  // const [valueinput, setValueinput] = useState({
+  //   username: "",
+  //   password: "",
+  //   confirmvalue: "",
+  // });
+  // const Handlesubmit = () => {
+  //   const userData = {
+  //     username: valueinput.username,
+  //     password: valueinput.password,
+  //   };
+  //   client
+  //     .post("/sign_up", userData)
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  //   setValueinput({ username: "", password: "", confirmvalue: "" });
+  // };
+  const state = useSelector((state: RootState) => state.authen.user);
+  const dispatch = useDispatch();
+  console.log(state.username);
+  console.log(state.password);
+  // useState dùng để check giữa confirm và password chính
+  const [confirm, setConfirm] = useState("");
+  const [isEqual, setIsEqual] = useState(false);
+  useEffect(() => {
+    setIsEqual(state.password === confirm);
+  }, [state.password, confirm]);
+  //handle Submit
+  const handleSubmit = () => {
+    dispatch(resetState());
   };
   const list = [
     { id: 1, name: "Google" },
@@ -106,12 +126,9 @@ const Signup = () => {
                 <TextField
                   sx={{ width: "100%", my: 1 }}
                   label="username"
-                  value={valueinput.username}
+                  value={state.username}
                   onChange={(event) =>
-                    setValueinput({
-                      ...valueinput,
-                      username: event.target.value,
-                    })
+                    dispatch(setUsername(event.target.value))
                   }
                 />
                 <Typography sx={{ mb: 1 }}>Password</Typography>
@@ -132,12 +149,9 @@ const Signup = () => {
                   }}
                   type={visiblePw ? "text" : "password"}
                   label="Password"
-                  value={valueinput.password}
+                  value={state.password}
                   onChange={(event) =>
-                    setValueinput({
-                      ...valueinput,
-                      password: event.target.value,
-                    })
+                    dispatch(setPassword(event.target.value))
                   }
                 ></TextField>
                 <Typography sx={{ mb: 1 }}>Confirm Password</Typography>
@@ -159,13 +173,10 @@ const Signup = () => {
                   inputProps={{ minLength: 8 }}
                   type={visiblePw ? "text" : "password"}
                   label="Confirm Password"
-                  value={valueinput.confirmvalue}
-                  onChange={(event) =>
-                    setValueinput({
-                      ...valueinput,
-                      confirmvalue: event.target.value,
-                    })
-                  }
+                  error={isEqual ? false : true}
+                  value={confirm}
+                  onChange={(event) => setConfirm(event.target.value)}
+                  helperText={isEqual ? null : "Vui lòng kiểm tra lại mật khẩu"}
                 ></TextField>
                 <Link
                   href="/sign_in"
@@ -191,9 +202,10 @@ const Signup = () => {
                     background: "#cccccc",
                   },
                 }}
-                onClick={Handlesubmit}
+                disabled={isEqual ? false : true}
+                onClick={handleSubmit}
               >
-                Login
+                sign_up
               </Button>
               <Box display={"flex"} width={"100%"} alignItems={"center"}>
                 <Box

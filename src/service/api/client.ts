@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://6731ddf77aaf2a9aff12855f.mockapi.io/",
+  baseURL: "http://localhost:3333/api",
   timeout: 10000,
 });
 

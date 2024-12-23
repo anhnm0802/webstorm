@@ -124,7 +124,7 @@ const Signin = () => {
                     Forgot Password??
                   </Link>
                   <Link
-                    href="/"
+                    href="/sign_up"
                     sx={{ color: "black", fontWeight: "700" }}
                     underline="none"
                   >

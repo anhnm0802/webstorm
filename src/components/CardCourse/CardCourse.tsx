@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import LogoDesign from "../../assets/icon/LogoDesign";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import bgImage from "../../assets/github-mark.svg";
 const CardCourse = () => {
   return (
     <>
@@ -9,18 +10,17 @@ const CardCourse = () => {
         sx={{
           width: "374px",
           height: "617px",
-
           borderRadius: "20px",
           boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+          padding: "20px",
         }}
       >
         <Box
           sx={{
-            padding: "20px",
             display: "flex",
             flexDirection: "column",
             gap: "20px",
-            maxHeight: "fit-content",
+            height: "100%",
           }}
         >
           <Box
@@ -29,7 +29,10 @@ const CardCourse = () => {
               border: "1px solid #90AEAD",
               width: "100%",
               height: "239px",
-              bgcolor: "#C2B9B0",
+
+              backgroundImage: `url(${bgImage})`,
+              backgroundSize: "cover", // Thêm thuộc tính backgroundSize
+              backgroundPosition: "center",
             }}
           ></Box>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -42,7 +45,7 @@ const CardCourse = () => {
               <Typography sx={{ ml: "10px" }}>3 Month</Typography>
             </Box>
           </Box>
-          <Box>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             <Typography
               sx={{
                 fontFamily: "Poppins",
@@ -60,7 +63,7 @@ const CardCourse = () => {
             </Typography>
           </Box>
           <Box flex={1}></Box>
-          <Box display={"flex"} alignItems={"center"}>
+          <Box display={"flex"} alignItems={"center"} bottom={0}>
             <Box
               className="avt"
               sx={{
@@ -72,7 +75,9 @@ const CardCourse = () => {
             ></Box>
             <Typography>Name</Typography>
             <Box flex={1}></Box>
-            <Typography>Value</Typography>
+            <Typography sx={{ mr: "10px", textDecoration: "line-through" }}>
+              $Value
+            </Typography>
             <Typography>Value</Typography>
           </Box>
         </Box>
