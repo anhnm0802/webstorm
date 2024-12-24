@@ -67,18 +67,16 @@ const Signin = () => {
             sm={6}
             md={6}
             lg={6}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
           >
             <img
               src={logoLogin}
               alt="Logo"
               style={{
-                maxWidth: "80%", // Đảm bảo ảnh không vượt quá khung
-                height: "auto",
+                maxWidth: "50%", // Đảm bảo ảnh không vượt quá khung
+                height: "fit-content",
               }}
             />
             {/* <Box
@@ -103,7 +101,6 @@ const Signin = () => {
           >
             <Box
               sx={{
-                my: 3,
                 mx: 3,
                 width: "100%",
                 display: "flex",
@@ -112,7 +109,7 @@ const Signin = () => {
                 justifyContent: "center",
               }}
             >
-              <Box width={"100%"} sx={{ mt: 2, mb: 2 }}>
+              <Box width={"100%"} sx={{ mb: 2 }}>
                 <ThemeProvider theme={typoTheme}>
                   <Typography sx={{ mb: 1 }}>Email or phone number</Typography>
                 </ThemeProvider>
