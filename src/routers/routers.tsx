@@ -8,10 +8,6 @@ import ProtectedRouter from "./protectedRouter";
 
 const routers = createBrowserRouter([
   {
-    index: true,
-    element: <Navigate to={PATH_NAME.SIGN_IN} replace />,
-  },
-  {
     path: PATH_NAME.SIGN_IN,
     element: <Signin />,
   },
@@ -21,8 +17,16 @@ const routers = createBrowserRouter([
   },
   {
     path: PATH_NAME.ROOT,
-    element: <Mainlayout />,
+    element: (
+      <ProtectedRouter>
+        <Mainlayout />
+      </ProtectedRouter>
+    ),
     children: [
+      {
+        index: true,
+        element: <Navigate to={PATH_NAME.HOME} replace />,
+      },
       {
         path: PATH_NAME.HOME,
         element: (

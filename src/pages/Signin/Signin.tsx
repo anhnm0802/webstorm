@@ -7,12 +7,20 @@ import {
   Link,
   Paper,
   TextField,
+  ThemeProvider,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Trans } from "react-i18next";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import instance from "../../service/api";
+import LogoGoogle from "../../assets/icon/LogoGoogle";
+import LogoFacebook from "../../assets/icon/LogoFacebook";
+import LogoLinkedIn from "../../assets/icon/LogoLinkedIn";
+import bgLogin from "../../assets/images/backgroundLogin.svg";
+import logoLogin from "../../assets/images/logoChrist.svg";
+import { ThemeContext } from "@emotion/react";
+import typoTheme from "../../themes/typography";
 const Signin = () => {
   const [visiblePw, setVisiblePw] = useState(false);
   const handleClickShowPassword = () => {
@@ -20,10 +28,24 @@ const Signin = () => {
   };
   const [valueinput, setValueinput] = useState({ username: "", password: "" });
   const list = [
-    { id: 1, name: "Google" },
-    { id: 2, name: "Facebook" },
-    { id: 3, name: "linkedin" },
+    { id: 1, logo: <LogoGoogle />, name: "Google" },
+    { id: 2, logo: <LogoFacebook />, name: "Facebook" },
+    { id: 3, logo: <LogoLinkedIn />, name: "linkedin" },
   ];
+
+  const checklogin = async () => {
+    try {
+      const response = await instance.get("/user", {
+        timeout: 10000,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  const handleChecklogin = () => {
+    checklogin();
+  };
   return (
     <>
       <Grid container sx={{ height: "100vh" }} justifyContent={"center"}>
@@ -37,6 +59,7 @@ const Signin = () => {
           component={Paper}
           elevation={6}
           square
+          sx={{ backgroundImage: `url(${bgLogin})` }}
         >
           <Grid
             item
@@ -50,7 +73,23 @@ const Signin = () => {
               alignItems: "center",
             }}
           >
-            Logo
+            <img
+              src={logoLogin}
+              alt="Logo"
+              style={{
+                maxWidth: "80%", // Đảm bảo ảnh không vượt quá khung
+                height: "auto",
+              }}
+            />
+            {/* <Box
+              component="img"
+              src={logoLogin}
+              alt="Logo"
+              sx={{
+                maxWidth: "80%", // Điều chỉnh kích thước
+                height: "auto",
+              }}
+            /> */}
           </Grid>
           <Grid
             item
@@ -73,14 +112,29 @@ const Signin = () => {
                 justifyContent: "center",
               }}
             >
-              <Typography variant="h6">
-                <Trans>Login</Trans>
-              </Typography>
               <Box width={"100%"} sx={{ mt: 2, mb: 2 }}>
-                <Typography sx={{ mb: 1 }}>Email or phone number</Typography>
+                <ThemeProvider theme={typoTheme}>
+                  <Typography sx={{ mb: 1 }}>Email or phone number</Typography>
+                </ThemeProvider>
+
                 <TextField
-                  sx={{ width: "100%", my: 1 }}
-                  label="username"
+                  sx={{
+                    width: "100%",
+                    my: 1,
+                    backgroundColor: "rgba(227, 151, 151, 0.4)",
+                    borderRadius: "8px",
+                    "& .MuiOutlinedInput-root": {
+                      "&:focus-within fieldset": {
+                        borderColor: "transparent", // Khi nhấn vào TextField, thay đổi màu viền
+                      },
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      border: "2px solid rgba(255, 255, 255, 0.5)", // Viền sáng hơn
+                      borderRadius: "8px",
+                    },
+                  }}
                   value={valueinput.username}
                   onChange={(event) =>
                     setValueinput({
@@ -91,8 +145,30 @@ const Signin = () => {
                 />
                 <Typography sx={{ mb: 1 }}>Password</Typography>
                 <TextField
-                  sx={{ width: "100%", my: 1 }}
+                  type={visiblePw ? "text" : "password"}
+                  value={valueinput.password}
+                  onChange={(event) =>
+                    setValueinput({
+                      ...valueinput,
+                      password: event.target.value,
+                    })
+                  }
+                  sx={{
+                    width: "100%",
+                    my: 1,
+                    backgroundColor: "rgba(227, 151, 151, 0.4)",
+                    borderRadius: "8px",
+                    "& .MuiOutlinedInput-root": {
+                      "&:focus-within fieldset": {
+                        borderColor: "transparent", // Khi nhấn vào TextField, thay đổi màu viền
+                      },
+                    },
+                  }}
                   InputProps={{
+                    style: {
+                      border: "2px solid rgba(255, 255, 255, 0.5)", // Viền sáng hơn
+                      borderRadius: "8px",
+                    },
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton onClick={handleClickShowPassword}>
@@ -105,15 +181,6 @@ const Signin = () => {
                       </InputAdornment>
                     ),
                   }}
-                  type={visiblePw ? "text" : "password"}
-                  label="Password"
-                  value={valueinput.password}
-                  onChange={(event) =>
-                    setValueinput({
-                      ...valueinput,
-                      password: event.target.value,
-                    })
-                  }
                 ></TextField>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Link
@@ -141,7 +208,10 @@ const Signin = () => {
                     color: "black",
                     background: "#cccccc",
                   },
+                  bgcolor: "rgba(255, 255, 255, 0.4)",
+                  borderColor: "transparent",
                 }}
+                onClick={handleChecklogin}
               >
                 Login
               </Button>
@@ -165,7 +235,7 @@ const Signin = () => {
                   gap: 1.5,
                 }}
               >
-                {list.map((item: { id: number; name: string }) => {
+                {list.map((item) => {
                   return (
                     <Button
                       sx={{
@@ -176,7 +246,10 @@ const Signin = () => {
                           color: "black",
                           background: "#cccccc",
                         },
+                        bgcolor: "rgba(255, 255, 255, 0.4)",
+                        borderColor: "transparent",
                       }}
+                      startIcon={item.logo}
                     >
                       {item.name}
                     </Button>

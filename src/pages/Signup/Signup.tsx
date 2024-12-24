@@ -23,6 +23,7 @@ import {
   setPassword,
   setUsername,
 } from "../../redux/slices/authSlice";
+import instance from "../../service/api";
 
 const Signup = () => {
   const [visiblePw, setVisiblePw] = useState(false);
@@ -51,16 +52,18 @@ const Signup = () => {
   // };
   const state = useSelector((state: RootState) => state.authen.user);
   const dispatch = useDispatch();
-  console.log(state.username);
-  console.log(state.password);
+
   // useState dùng để check giữa confirm và password chính
   const [confirm, setConfirm] = useState("");
   const [isEqual, setIsEqual] = useState(false);
   useEffect(() => {
     setIsEqual(state.password === confirm);
   }, [state.password, confirm]);
+  // check thử xem có login được không
+
   //handle Submit
   const handleSubmit = () => {
+    checklogin();
     dispatch(resetState());
   };
   const list = [

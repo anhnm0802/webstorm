@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import LogoDesign from "../../assets/icon/LogoDesign";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
-import bgImage from "../../assets/github-mark.svg";
+import bgImage from "../../assets/images/github-mark.svg";
 const CardCourse = () => {
   return (
     <>

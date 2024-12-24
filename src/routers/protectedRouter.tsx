@@ -6,7 +6,7 @@ import { PATH_NAME } from "../contants/pathName";
 const ProtectedRouter = ({ children }: { children: React.ReactNode }) => {
   const isLogin = useSelector((state: RootState) => state.authen.isLogin);
   const location = useLocation();
-  if (!isLogin) {
+  if (isLogin == false) {
     return <Navigate to={PATH_NAME.SIGN_IN} state={location} replace />;
   }
   return children;

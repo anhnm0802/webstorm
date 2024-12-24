@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+  Tuple,
+} from "@reduxjs/toolkit";
 import instance from "../../service/api";
 
 export enum UserRole {
@@ -38,34 +43,12 @@ const initialState: AuthState = {
     updateAt: new Date(),
   },
 };
+
 type LoginParams = {
   username: string;
   password: string;
 };
-export const login = createAsyncThunk(
-  "auth/login",
-  async (params: LoginParams, thunkApi) => {
-    try {
-      const response = await instance.post("/user", {
-        username: params.username,
-        password: params.password, // need encrypt before send to server
-      });
-      // return response.data;
-      return thunkApi.fulfillWithValue(response.data as User);
-    } catch (error) {
-      const {
-        response: { status },
-        message,
-      } = error as any;
-      if (status === 401)
-        return thunkApi.rejectWithValue(
-          "Tên đăng nhập hoặc mật khẩu không đúng"
-        );
-      return thunkApi.rejectWithValue(message);
-    }
-  }
-);
-// export const register = createAsyncThunk();
+// export const dataMiddleware = createAsyncThunk("auth/login", async(endpoint));
 
 export const authSlice = createSlice({
   name: "authSlice",
@@ -89,21 +72,21 @@ export const authSlice = createSlice({
       state.user.username = "";
     },
   },
-  extraReducers(builder) {
-    builder
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isLogin = true;
-        state.user = action.payload;
-      })
-      .addCase(login.rejected, (state) => {
-        state.isLoading = false;
-        state.isLogin = false;
-      });
-  },
+  // extraReducers(builder) {
+  //   builder
+  //     .addCase(login.pending, (state) => {
+  //       state.isLoading = true;
+  //     })
+  //     .addCase(login.fulfilled, (state, action) => {
+  //       state.isLoading = false;
+  //       state.isLogin = true;
+  //       state.user = action.payload;
+  //     })
+  //     .addCase(login.rejected, (state) => {
+  //       state.isLoading = false;
+  //       state.isLogin = false;
+  //     });
+  // },
 });
 export const { setUsername, setPassword, resetState } = authSlice.actions;
 export default authSlice.reducer;

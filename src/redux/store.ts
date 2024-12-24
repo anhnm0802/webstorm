@@ -4,7 +4,6 @@ import authSlice from "./slices/authSlice";
 
 export const store = configureStore({
   reducer: { authen: authSlice },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
