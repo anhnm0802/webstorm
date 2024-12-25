@@ -13,7 +13,6 @@ import {
 import { useEffect, useState } from "react";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import instance from "../../service/api";
 import LogoGoogle from "../../assets/icon/LogoGoogle";
 import LogoFacebook from "../../assets/icon/LogoFacebook";
 import LogoLinkedIn from "../../assets/icon/LogoLinkedIn";

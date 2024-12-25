@@ -1,5 +1,4 @@
-
 export const LANGUAGE = {
-    ENGLISH: 'en',
-    VIETNAMESE: 'vn'
-}
+  ENGLISH: "en",
+  VIETNAMESE: "vn",
+};
