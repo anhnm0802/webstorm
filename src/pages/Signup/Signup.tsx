@@ -24,6 +24,7 @@ import {
   setUsername,
 } from "../../redux/slices/authSlice";
 import instance from "../../service/api";
+import { useAppDispatch } from "../../redux/hook";
 
 const Signup = () => {
   const [visiblePw, setVisiblePw] = useState(false);
@@ -51,7 +52,7 @@ const Signup = () => {
   //   setValueinput({ username: "", password: "", confirmvalue: "" });
   // };
   const state = useSelector((state: RootState) => state.authen.user);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // useState dùng để check giữa confirm và password chính
   const [confirm, setConfirm] = useState("");

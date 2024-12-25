@@ -10,7 +10,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import instance from "../../service/api";
@@ -21,31 +21,39 @@ import bgLogin from "../../assets/images/backgroundLogin.svg";
 import logoLogin from "../../assets/images/logoChrist.svg";
 import { ThemeContext } from "@emotion/react";
 import typoTheme from "../../themes/typography";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/slices/authSlice";
+import { useAppDispatch } from "../../redux/hook";
+import { RootState } from "../../redux/store";
+import { PATH_NAME } from "../../contants/pathName";
+import { useNavigate } from "react-router-dom";
 const Signin = () => {
+  const dispatch = useAppDispatch();
   const [visiblePw, setVisiblePw] = useState(false);
   const handleClickShowPassword = () => {
     setVisiblePw(!visiblePw);
   };
-  const [valueinput, setValueinput] = useState({ username: "", password: "" });
   const list = [
     { id: 1, logo: <LogoGoogle />, name: "Google" },
     { id: 2, logo: <LogoFacebook />, name: "Facebook" },
     { id: 3, logo: <LogoLinkedIn />, name: "linkedin" },
   ];
+  const [valueinput, setValueinput] = useState({ username: "", password: "" });
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    dispatch(
+      login({
+        userlog: valueinput.username,
+        passlog: valueinput.password,
+      })
+    );
+  };
+  const isLogin = useSelector((state: RootState) => state.authen.isLogin);
+  console.log(isLogin);
+  useEffect(() => {
+    isLogin && navigate(PATH_NAME.ROOT);
+  }, [isLogin]);
 
-  const checklogin = async () => {
-    try {
-      const response = await instance.get("/user", {
-        timeout: 10000,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-  const handleChecklogin = () => {
-    checklogin();
-  };
   return (
     <>
       <Grid container sx={{ height: "100vh" }} justifyContent={"center"}>
@@ -208,7 +216,8 @@ const Signin = () => {
                   bgcolor: "rgba(255, 255, 255, 0.4)",
                   borderColor: "transparent",
                 }}
-                onClick={handleChecklogin}
+                onPress={handleLogin}
+                onClick={handleLogin}
               >
                 Login
               </Button>
