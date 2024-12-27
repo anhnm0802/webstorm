@@ -2,7 +2,16 @@ import { Box, Typography } from "@mui/material";
 import LogoDesign from "../../assets/icon/LogoDesign";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import bgImage from "../../assets/images/github-mark.svg";
-const CardCourse = () => {
+const CardCourse = ({
+  name,
+  des,
+  field,
+  price,
+  priceSale,
+  duration,
+  authorCourse,
+  avatar,
+}: any) => {
   return (
     <>
       <Box
@@ -38,11 +47,11 @@ const CardCourse = () => {
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <LogoDesign />
-              <Typography sx={{ ml: "10px" }}>Design</Typography>
+              <Typography sx={{ ml: "10px" }}>{field}</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <AccessTimeOutlinedIcon />
-              <Typography sx={{ ml: "10px" }}>3 Month</Typography>
+              <Typography sx={{ ml: "10px" }}>{duration} Month</Typography>
             </Box>
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -55,12 +64,9 @@ const CardCourse = () => {
                 lineHeight: "normal",
               }}
             >
-              AWS Certified solutions Architect
+              {name}
             </Typography>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipising elit, sed do
-              eiusmod tempor
-            </Typography>
+            <Typography>{des}</Typography>
           </Box>
           <Box flex={1}></Box>
           <Box display={"flex"} alignItems={"center"} bottom={0}>
@@ -70,15 +76,15 @@ const CardCourse = () => {
                 width: "44px",
                 height: "44px",
                 borderRadius: "22px",
-                bgcolor: "#C1A4D9",
+                bgcolor: "#CEAB93",
               }}
             ></Box>
-            <Typography>Name</Typography>
+            <Typography>{authorCourse}</Typography>
             <Box flex={1}></Box>
             <Typography sx={{ mr: "10px", textDecoration: "line-through" }}>
-              $Value
+              ${price}
             </Typography>
-            <Typography>Value</Typography>
+            <Typography>{priceSale}</Typography>
           </Box>
         </Box>
       </Box>

@@ -1,13 +1,12 @@
 import {
   Box,
   Button,
-  Grid,
+  Grid2,
   IconButton,
   InputAdornment,
   Link,
   Paper,
   TextField,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -18,9 +17,8 @@ import LogoFacebook from "../../assets/icon/LogoFacebook";
 import LogoLinkedIn from "../../assets/icon/LogoLinkedIn";
 import bgLogin from "../../assets/images/backgroundLogin.svg";
 import logoLogin from "../../assets/images/logoChrist.svg";
-import { ThemeContext } from "@emotion/react";
-import typoTheme from "../../themes/typography";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 import { login } from "../../redux/slices/authSlice";
 import { useAppDispatch } from "../../redux/hook";
 import { RootState } from "../../redux/store";
@@ -55,8 +53,8 @@ const Signin = () => {
 
   return (
     <>
-      <Grid container sx={{ height: "100vh" }} justifyContent={"center"}>
-        <Grid
+      <Grid2 container sx={{ height: "100vh" }} justifyContent={"center"}>
+        <Grid2
           item
           container
           xs={12}
@@ -68,7 +66,7 @@ const Signin = () => {
           square
           sx={{ backgroundImage: `url(${bgLogin})` }}
         >
-          <Grid
+          <Grid2
             item
             xs={12}
             sm={6}
@@ -95,8 +93,8 @@ const Signin = () => {
                 height: "auto",
               }}
             /> */}
-          </Grid>
-          <Grid
+          </Grid2>
+          <Grid2
             item
             xs={12}
             sm={6}
@@ -117,10 +115,6 @@ const Signin = () => {
               }}
             >
               <Box width={"100%"} sx={{ mb: 2 }}>
-                <ThemeProvider theme={typoTheme}>
-                  <Typography sx={{ mb: 1 }}>Email or phone number</Typography>
-                </ThemeProvider>
-
                 <TextField
                   sx={{
                     width: "100%",
@@ -147,7 +141,7 @@ const Signin = () => {
                     })
                   }
                 />
-                <Typography sx={{ mb: 1 }}>Password</Typography>
+
                 <TextField
                   type={visiblePw ? "text" : "password"}
                   value={valueinput.password}
@@ -186,22 +180,6 @@ const Signin = () => {
                     ),
                   }}
                 ></TextField>
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Link
-                    href="/"
-                    sx={{ color: "black", fontWeight: "700" }}
-                    underline="none"
-                  >
-                    Forgot Password??
-                  </Link>
-                  <Link
-                    href="/sign_up"
-                    sx={{ color: "black", fontWeight: "700" }}
-                    underline="none"
-                  >
-                    Signup Accout
-                  </Link>
-                </Box>
               </Box>
               <Button
                 sx={{
@@ -215,7 +193,6 @@ const Signin = () => {
                   bgcolor: "rgba(255, 255, 255, 0.4)",
                   borderColor: "transparent",
                 }}
-                onPress={handleLogin}
                 onClick={handleLogin}
               >
                 Login
@@ -261,10 +238,26 @@ const Signin = () => {
                   );
                 })}
               </Box>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Link
+                  href="/"
+                  sx={{ color: "black", fontWeight: "700" }}
+                  underline="none"
+                >
+                  Forgot Password??
+                </Link>
+                <Link
+                  href="/sign_up"
+                  sx={{ color: "black", fontWeight: "700" }}
+                  underline="none"
+                >
+                  Signup Accout
+                </Link>
+              </Box>
             </Box>
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
     </>
   );
 };

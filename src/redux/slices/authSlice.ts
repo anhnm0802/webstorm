@@ -25,7 +25,7 @@ interface AuthState {
   accessToken: string | null;
 }
 const initialState: AuthState = {
-  isLogin: false,
+  isLogin: true,
   isLoading: false,
   user: {
     username: "",
@@ -46,26 +46,41 @@ type LoginParams = {
   passlog: string;
 };
 // export const dataMiddleware = createAsyncThunk("auth/login", async(endpoint));
+// export const login = createAsyncThunk(
+//   "auth/login",
+//   async (params: LoginParams, thunkApi) => {
+//     try {
+//       const response = await instance.post("/auth/login", {
+//         username: params.userlog,
+//         pass: params.passlog, // need encrypt before send to server
+//       });
+//       // return response.data;
+//       return thunkApi.fulfillWithValue(response.data as User);
+//     } catch (error) {
+//       const {
+//         response: { status },
+//         message,
+//       } = error as any;
+//       if (status === 401)
+//         return thunkApi.rejectWithValue(
+//           "Tên đăng nhập hoặc mật khẩu không đúng"
+//         );
+//       return thunkApi.rejectWithValue(message);
+//     }
+//   }
+// );
+
 export const login = createAsyncThunk(
   "auth/login",
   async (params: LoginParams, thunkApi) => {
     try {
       const response = await instance.post("/auth/login", {
         username: params.userlog,
-        pass: params.passlog, // need encrypt before send to server
+        pass: params.passlog,
       });
-      // return response.data;
       return thunkApi.fulfillWithValue(response.data as User);
     } catch (error) {
-      const {
-        response: { status },
-        message,
-      } = error as any;
-      if (status === 401)
-        return thunkApi.rejectWithValue(
-          "Tên đăng nhập hoặc mật khẩu không đúng"
-        );
-      return thunkApi.rejectWithValue(message);
+      return thunkApi.rejectWithValue({ error });
     }
   }
 );

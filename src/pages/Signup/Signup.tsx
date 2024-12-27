@@ -16,14 +16,14 @@ import { Trans } from "react-i18next";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import Checkbox from "@mui/material/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import {
   resetState,
   setPassword,
   setUsername,
 } from "../../redux/slices/authSlice";
-import instance from "../../service/api";
+
 import { useAppDispatch } from "../../redux/hook";
 
 const Signup = () => {
@@ -64,7 +64,6 @@ const Signup = () => {
 
   //handle Submit
   const handleSubmit = () => {
-    checklogin();
     dispatch(resetState());
   };
   const list = [

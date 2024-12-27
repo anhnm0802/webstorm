@@ -5,11 +5,12 @@ import Signup from "../pages/Signup";
 import Mainlayout from "../layouts/Mainlayout";
 import Home from "../pages/Home";
 import ProtectedRouter from "./protectedRouter";
+import Login from "../pages/Login";
 
 const routers = createBrowserRouter([
   {
     path: PATH_NAME.SIGN_IN,
-    element: <Signin />,
+    element: <Login />,
   },
   {
     path: PATH_NAME.SIGN_UP,
