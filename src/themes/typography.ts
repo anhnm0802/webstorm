@@ -1,8 +1,6 @@
-import { createTheme } from "@mui/material";
-
-const typoTheme = createTheme({
-  typography: {
-    fontFamily: "Poppins",
-  },
+export const getTypography = () => ({
+  htmlFontSize: 16,
+  fontFamily: "Inter",
+  fontSize: 14,
+  fontWeight: 400,
 });
-export default typoTheme;

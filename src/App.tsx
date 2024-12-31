@@ -1,14 +1,20 @@
 import { RouterProvider } from "react-router-dom";
 import routers from "./routers/routers";
 import "./App.scss";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
+import { ThemeProvider } from "@mui/material";
+import theme from "./themes/theme";
+import "./locales/i18n";
 function App() {
+  const modeThemeStyle = useSelector(
+    (state: RootState) => state.appstate.modeTheme
+  );
   return (
     <>
-      <Provider store={store}>
+      <ThemeProvider theme={theme(modeThemeStyle)}>
         <RouterProvider router={routers} />
-      </Provider>
+      </ThemeProvider>
     </>
   );
 }

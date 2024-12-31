@@ -5,6 +5,7 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import FormLogin from "../../components/FormLogin";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,6 +41,7 @@ const Login = () => {
   useEffect(() => {
     isLogin && navigate(PATH_NAME.ROOT);
   }, [isLogin]);
+  const theme = useTheme();
   return (
     <>
       <FormLogin>
@@ -59,7 +61,7 @@ const Login = () => {
             <Link
               to={PATH_NAME.SIGN_UP}
               style={{
-                color: "black",
+                color: theme.palette.primary.main,
                 textDecorationLine: "none",
                 fontWeight: "700",
               }}

@@ -1,5 +1,4 @@
 {
-    "lang_sign_in":"sign_in",
-    "lang_sign_up":"sign_up"
-
+  "sign in": "Sign In",
+  "sign up": "Sign Up"
 }
