@@ -1,11 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { PATH_NAME } from "../contants/pathName";
-import Signin from "../pages/Signin/Signin";
-import Signup from "../pages/Signup";
 import Mainlayout from "../layouts/Mainlayout";
 import Home from "../pages/Home";
 import ProtectedRouter from "./protectedRouter";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const routers = createBrowserRouter([
   {
@@ -14,7 +13,7 @@ const routers = createBrowserRouter([
   },
   {
     path: PATH_NAME.SIGN_UP,
-    element: <Signup />,
+    element: <Register />,
   },
   {
     path: PATH_NAME.ROOT,

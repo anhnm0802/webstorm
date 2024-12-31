@@ -3,6 +3,6 @@ export const PATH_NAME = {
   SIGN_IN: "/sign_in",
   SIGN_UP: "/sign_up",
   HOME: "home",
-  BLOG: "Blogpage",
-  MEMBER: "Membership",
+  BLOG: "blogpage",
+  MEMBER: "membership",
 };

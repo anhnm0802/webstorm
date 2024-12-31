@@ -12,17 +12,17 @@ import {
 import { useEffect, useState } from "react";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import LogoGoogle from "../../assets/icon/LogoGoogle";
-import LogoFacebook from "../../assets/icon/LogoFacebook";
-import LogoLinkedIn from "../../assets/icon/LogoLinkedIn";
+import LogoGoogle from "../../../assets/icon/LogoGoogle";
+import LogoFacebook from "../../../assets/icon/LogoFacebook";
+import LogoLinkedIn from "../../../assets/icon/LogoLinkedIn";
 import bgLogin from "../../assets/images/backgroundLogin.svg";
 import logoLogin from "../../assets/images/logoChrist.svg";
 
 import { useSelector } from "react-redux";
-import { login } from "../../redux/slices/authSlice";
-import { useAppDispatch } from "../../redux/hook";
-import { RootState } from "../../redux/store";
-import { PATH_NAME } from "../../contants/pathName";
+import { login } from "../../../redux/slices/authSlice";
+import { useAppDispatch } from "../../../redux/hook";
+import { RootState } from "../../../redux/store";
+import { PATH_NAME } from "../../../contants/pathName";
 import { useNavigate } from "react-router-dom";
 const Signin = () => {
   const dispatch = useAppDispatch();
@@ -47,9 +47,9 @@ const Signin = () => {
   };
   const isLogin = useSelector((state: RootState) => state.authen.isLogin);
   console.log(isLogin);
-  useEffect(() => {
-    isLogin && navigate(PATH_NAME.ROOT);
-  }, [isLogin]);
+  // useEffect(() => {
+  //   isLogin && navigate(PATH_NAME.ROOT);
+  // }, [isLogin]);
 
   return (
     <>

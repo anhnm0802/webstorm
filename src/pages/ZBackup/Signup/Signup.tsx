@@ -17,14 +17,14 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import Checkbox from "@mui/material/Checkbox";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 import {
   resetState,
   setPassword,
   setUsername,
-} from "../../redux/slices/authSlice";
+} from "../../../redux/slices/authSlice";
 
-import { useAppDispatch } from "../../redux/hook";
+import { useAppDispatch } from "../../../redux/hook";
 
 const Signup = () => {
   const [visiblePw, setVisiblePw] = useState(false);

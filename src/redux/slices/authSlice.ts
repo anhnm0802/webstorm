@@ -25,7 +25,7 @@ interface AuthState {
   accessToken: string | null;
 }
 const initialState: AuthState = {
-  isLogin: true,
+  isLogin: false,
   isLoading: false,
   user: {
     username: "",
@@ -78,6 +78,7 @@ export const login = createAsyncThunk(
         username: params.userlog,
         pass: params.passlog,
       });
+      console.log(response);
       return thunkApi.fulfillWithValue(response.data as User);
     } catch (error) {
       return thunkApi.rejectWithValue({ error });
