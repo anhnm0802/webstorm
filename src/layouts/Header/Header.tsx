@@ -1,4 +1,5 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Drawer, IconButton } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import SupportAgentOutlinedIcon from "@mui/icons-material/SupportAgentOutlined";
@@ -8,22 +9,11 @@ import LionIcon from "../../assets/icon/LogoLion";
 import { useNavigate } from "react-router-dom";
 import instance from "../../service/api";
 import { useEffect, useState } from "react";
+import CustomTrans from "../../components/CustomTrans/CustomTrans";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import DehazeOutlinedIcon from "@mui/icons-material/DehazeOutlined";
+import DensityMediumOutlinedIcon from "@mui/icons-material/DensityMediumOutlined";
 const Header = () => {
-  const iconMap = {
-    HomeOutlinedIcon: <HomeOutlinedIcon />,
-    SchoolOutlinedIcon: <SchoolOutlinedIcon />,
-    SupportAgentOutlinedIcon: <SupportAgentOutlinedIcon />,
-    BookOutlinedIcon: <BookOutlinedIcon />,
-    Diversity1OutlinedIcon: <Diversity1OutlinedIcon />,
-  };
-  const list = [
-    { id: 1, name: "Home", logo: "HomeOutlinedIcon" },
-    { id: 2, name: "Course", logo: "SchoolOutlinedIcon" },
-    { id: 3, name: "Careers", logo: "SupportAgentOutlinedIcon" },
-    { id: 4, name: "Blog", logo: "BookOutlinedIcon" },
-    { id: 5, name: "About us", logo: "Diversity1OutlinedIcon" },
-    { id: 6, name: "Profile" },
-  ];
   const [datatable, setDataTable] = useState([]);
   useEffect(() => {
     const checklog = async () => {
@@ -37,18 +27,35 @@ const Header = () => {
     };
     checklog();
   }, []);
+  const [openDraw, setOpenDraw] = useState(false);
+  const toggleOpenDraw = (newOpen: boolean) => {
+    setOpenDraw(newOpen);
+  };
 
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/home");
+  const DrawerList = () => {
+    return (
+      <>
+        <Box
+          sx={{
+            height: "100vh",
+            width: "600px",
+            bgcolor: "white",
+          }}
+          onClick={() => toggleOpenDraw(false)}
+        ></Box>
+      </>
+    );
   };
   return (
     <>
+      <Drawer open={openDraw} onClose={() => toggleOpenDraw(false)}>
+        <DrawerList />
+      </Drawer>
       <Grid
         container
         sx={{
-          height: "7rem",
-          bgcolor: "#AD8B73",
+          height: "60px",
+          bgcolor: "gray",
           position: "sticky",
           top: 0,
           boxSizing: "border-box",
@@ -56,53 +63,62 @@ const Header = () => {
         }}
       >
         <Grid
-          container
-          item
-          xs={9}
-          sm={4}
-          md={4}
-          lg={4}
-          alignItems={"center"}
-          justifyContent={"center"}
-          sx={{ boxSizing: "border-box" }}
+          size={{ xs: 0, sm: 4, md: 4, lg: 4, xl: 4 }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            paddingLeft: "3rem",
+          }}
         >
-          <Grid item xs={1} sm={1} md={1} lg={1}></Grid>
-          <Grid
-            item
-            xs={3}
-            sm={3}
-            md={3}
-            lg={3}
-            sx={{ boxSizing: "border-box" }}
-          >
-            <Button startIcon={<LionIcon />} onClick={handleClick}></Button>
-          </Grid>
-          <Grid item xs={8} sm={8} md={8} lg={8}></Grid>
+          <Box sx={{ display: "flex", gap: 3 }}>
+            <Button>
+              <CustomTrans>shop</CustomTrans>
+            </Button>
+            <Button>
+              <CustomTrans>start here</CustomTrans>
+            </Button>
+            <Button>
+              <CustomTrans>resources</CustomTrans>
+            </Button>
+            <Button>
+              <CustomTrans>book a call</CustomTrans>
+            </Button>
+          </Box>
         </Grid>
         <Grid
-          container
-          item
-          xs={3}
-          sm={8}
-          md={8}
-          lg={8}
-          alignItems={"center"}
-          justifyContent={"space-around"}
-          display={{ xs: "none", sm: "flex" }}
-          sx={{ boxSizing: "border-box" }}
+          size={{ xs: 0, sm: 4, md: 4, lg: 4, xl: 4 }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingLeft: "3rem",
+          }}
         >
-          {list.map((item) => {
-            return (
-              <Grid key={item.id}>
-                <Button
-                  startIcon={item.logo ? iconMap[item.logo] : null}
-                  sx={{ color: "#FFFBE9" }}
-                >
-                  {item.name}
-                </Button>
-              </Grid>
-            );
-          })}
+          <Box sx={{ display: "flex" }}>
+            <Button>IDCO</Button>
+          </Box>
+        </Grid>
+        <Grid
+          size={{ xs: 0, sm: 4, md: 4, lg: 4, xl: 4 }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            paddingLeft: "3rem",
+            justifyContent: "flex-end",
+            paddingRight: "3rem",
+          }}
+        >
+          <Box sx={{ display: "flex" }}>
+            <IconButton>
+              <SearchOutlinedIcon />
+            </IconButton>
+            <Button>
+              <CustomTrans>cart</CustomTrans>
+            </Button>
+            <IconButton onClick={() => toggleOpenDraw(true)}>
+              <DensityMediumOutlinedIcon />
+            </IconButton>
+          </Box>
         </Grid>
       </Grid>
     </>

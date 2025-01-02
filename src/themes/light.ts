@@ -33,6 +33,14 @@ const getLight = () => {
           },
         },
       },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            color: "black",
+            fontSize: "12px",
+          },
+        },
+      },
     },
   });
 };

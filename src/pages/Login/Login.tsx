@@ -20,6 +20,7 @@ import { RootState } from "../../redux/store";
 import { PATH_NAME } from "../../contants/pathName";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import CustomTrans from "../../components/CustomTrans/CustomTrans";
 const Login = () => {
   const dispatch = useAppDispatch();
   const [hidden, setHidden] = useState(false);
@@ -54,7 +55,9 @@ const Login = () => {
         >
           <Box>
             <Typography fontSize={"20px"}>Welcome</Typography>
-            <Typography fontSize={"50px"}>Sign in</Typography>
+            <Typography fontSize={"50px"}>
+              <CustomTrans>sign in</CustomTrans>
+            </Typography>
           </Box>
           <Box>
             <Typography>No Account?</Typography>
