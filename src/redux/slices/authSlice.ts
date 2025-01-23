@@ -25,7 +25,7 @@ interface AuthState {
   accessToken: string | null;
 }
 const initialState: AuthState = {
-  isLogin: true,
+  isLogin: false,
   isLoading: false,
   user: {
     username: "",
