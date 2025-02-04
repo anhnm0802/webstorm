@@ -2,7 +2,7 @@ import { Button, Grid, TextField } from "@mui/material";
 const Footer = () => {
   return (
     <>
-      <Grid container height={"30rem"} bgcolor={"#252641"} color={"white"}>
+      <Grid container height={"30rem"} bgcolor={"#494438"} color={"white"}>
         <Grid
           item
           className="cotphu"

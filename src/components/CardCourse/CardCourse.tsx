@@ -10,7 +10,6 @@ const CardCourse = ({
   priceSale,
   duration,
   authorCourse,
-  avatar,
 }: any) => {
   return (
     <>

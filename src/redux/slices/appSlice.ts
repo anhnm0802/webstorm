@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Theme } from "../../configs";
-import theme from "../../themes/theme";
 
 interface AppState {
   modeTheme: string;
