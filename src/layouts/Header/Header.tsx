@@ -1,10 +1,18 @@
-import { Box, Button, Icon, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Drawer,
+  Icon,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
 import Grid from "@mui/material/Grid2";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DensityMediumRoundedIcon from "@mui/icons-material/DensityMediumRounded";
+import { useState } from "react";
 const Header = () => {
   const list = [
     { id: 1, name: "Shop" },
@@ -16,6 +24,32 @@ const Header = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/home");
+  };
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+  const DrawerBox = () => {
+    return (
+      <>
+        <Box
+          flex={1}
+          sx={{
+            width: {
+              xs: "100vw",
+              sm: "60vw",
+              md: "40vw",
+              lg: "30vw",
+              xl: "30vw",
+            },
+            p: "20px 20px 0px 20px",
+          }}
+        >
+          <Box></Box>
+        </Box>
+      </>
+    );
   };
   return (
     <>
@@ -121,12 +155,15 @@ const Header = () => {
             </IconButton>
             <Button sx={{ color: "black", fontSize: "11px" }}>Cart</Button>
             <Typography>1</Typography>
-            <IconButton>
+            <IconButton onClick={toggleDrawer(true)}>
               <DensityMediumRoundedIcon />
             </IconButton>
             <Box></Box>
           </Grid>
         </Grid>
+        <Drawer open={open} onClose={toggleDrawer(false)} anchor="right">
+          <DrawerBox />
+        </Drawer>
       </Grid>
     </>
   );
