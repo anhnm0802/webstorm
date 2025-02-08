@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import ProtectedRouter from "./protectedRouter";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Cart from "../pages/Cart";
 
 const routers = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ const routers = createBrowserRouter([
         element: (
           <ProtectedRouter>
             <Home />
+          </ProtectedRouter>
+        ),
+      },
+      {
+        path: PATH_NAME.CART,
+        element: (
+          <ProtectedRouter>
+            <Cart />
           </ProtectedRouter>
         ),
       },

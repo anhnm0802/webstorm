@@ -1,0 +1,27 @@
+<Box
+        sx={{
+          height: "fit-content",
+          bgcolor: "transparent",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+       
+          {dataTable.map((item) => {
+            return (
+              <CardCourse
+                key={item.id}
+                name={item.nameCourse}
+                des={item.description}
+                field={item.field}
+                price={item.price}
+                priceSale={item.priceSale}
+                duration={item.duration}
+                authorCourse={item.author?.fullName}
+                avatar={item.author?.avatar}
+              />
+            );
+          })}
+      
+      </Box>

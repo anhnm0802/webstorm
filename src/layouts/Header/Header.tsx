@@ -1,18 +1,34 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import instance from "../../service/api";
 import {
   Box,
   Button,
+  Collapse,
+  Divider,
   Drawer,
-  Icon,
   IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
   Typography,
 } from "@mui/material";
-
-import { useNavigate } from "react-router-dom";
-
 import Grid from "@mui/material/Grid2";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DensityMediumRoundedIcon from "@mui/icons-material/DensityMediumRounded";
-import { useState } from "react";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+interface listOption {
+  id: number;
+  nameOption: string;
+}
+interface listOptionShopAll {
+  id: number;
+  nameOptionShopAll: string;
+}
+
 const Header = () => {
   const list = [
     { id: 1, name: "Shop" },
@@ -22,14 +38,54 @@ const Header = () => {
   ];
 
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/home");
-  };
+  // const handleClick = () => {
+  //   navigate("/home");
+  // };
+  const [openCollapse, setOpenCollapse] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const handleClick = () => {
+    setOpenCollapse(!openCollapse);
+  };
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+  const [option1, setOption1] = useState<listOption[]>([]);
+  useEffect(() => {
+    const getDataListOption = async () => {
+      try {
+        const res = await instance.get("/listoptiondrawer/First");
+        setOption1(res.data);
+      } catch (error) {
+        console.log("lỗi dữ liệu lấy từ server", error);
+      }
+    };
+    getDataListOption();
+  }, []);
+  const [option2, setOption2] = useState<listOption[]>([]);
+  useEffect(() => {
+    const getDataListOption = async () => {
+      try {
+        const res = await instance.get("/listoptiondrawer/notFirst");
+        setOption2(res.data);
+      } catch (error) {
+        console.log("lỗi dữ liệu lấy từ server", error);
+      }
+    };
+    getDataListOption();
+  }, []);
+
+  const [optionShopAll, setOptionShopAll] = useState<listOptionShopAll[]>([]);
+  useEffect(() => {
+    const getDataShopAll = async () => {
+      try {
+        const res = await instance.get("/option-shop-all/getAllOptionShop");
+        setOptionShopAll(res.data);
+      } catch (error) {
+        console.log("Lỗi rồi, fix đi", error);
+      }
+    };
+    getDataShopAll();
+  }, []);
   const DrawerBox = () => {
     return (
       <>
@@ -46,7 +102,51 @@ const Header = () => {
             p: "20px 20px 0px 20px",
           }}
         >
-          <Box></Box>
+          <Box>
+            <List sx={{ p: "0" }}>
+              <ListItem sx={{ p: "0" }}>
+                <ListItemButton onClick={handleClick}>
+                  <ListItemText primary={option1.nameOption} />
+                  {openCollapse ? (
+                    <KeyboardArrowUpIcon />
+                  ) : (
+                    <KeyboardArrowDownIcon />
+                  )}
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+              <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {optionShopAll.map((item) => {
+                    return (
+                      <>
+                        <ListItem sx={{ p: "0", pl: 4 }}>
+                          <ListItemButton>
+                            <ListItemText primary={item.nameOptionShopAll} />
+                          </ListItemButton>
+                        </ListItem>
+                        <Divider variant="middle" />
+                      </>
+                    );
+                  })}
+                </List>
+              </Collapse>
+            </List>
+            <List sx={{ p: "0" }}>
+              {option2.map((item) => {
+                return (
+                  <>
+                    <ListItem sx={{ p: "0" }}>
+                      <ListItemButton>
+                        <ListItemText primary={item.nameOption} />
+                      </ListItemButton>
+                    </ListItem>
+                    <Divider />
+                  </>
+                );
+              })}
+            </List>
+          </Box>
         </Box>
       </>
     );
