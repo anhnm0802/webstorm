@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { To, useNavigate } from "react-router-dom";
 import instance from "../../service/api";
 import {
   Box,
@@ -19,6 +19,8 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DensityMediumRoundedIcon from "@mui/icons-material/DensityMediumRounded";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface listOption {
   id: number;
@@ -31,16 +33,16 @@ interface listOptionShopAll {
 
 const Header = () => {
   const list = [
-    { id: 1, name: "Shop" },
-    { id: 2, name: "Start here" },
-    { id: 3, name: "Resources" },
-    { id: 4, name: "Book a call" },
+    { id: 1, name: "Shop", to: "/home" },
+    { id: 2, name: "Start here", to: "/cart" },
+    { id: 3, name: "Resources", to: "/haha" },
+    { id: 4, name: "Book a call", to: "/haha" },
   ];
 
   const navigate = useNavigate();
-  // const handleClick = () => {
-  //   navigate("/home");
-  // };
+  const clickHeaderLeft = (prop: To) => {
+    navigate(prop);
+  };
   const [openCollapse, setOpenCollapse] = useState(false);
   const [open, setOpen] = useState(false);
   const handleClick = () => {
@@ -86,6 +88,23 @@ const Header = () => {
     };
     getDataShopAll();
   }, []);
+  const [countCart, setCountCart] = useState();
+
+  const stateCountRedux = useSelector(
+    (state: RootState) => state.appstate.reloadCart
+  );
+  useEffect(() => {
+    const getDataCount = async () => {
+      try {
+        const resCount = await instance.get("/storage-cart/count");
+        setCountCart(resCount.data);
+      } catch (error) {
+        console.log("Lỗi", error);
+      }
+    };
+    getDataCount();
+  }, [stateCountRedux]);
+
   const DrawerBox = () => {
     return (
       <>
@@ -151,6 +170,7 @@ const Header = () => {
       </>
     );
   };
+
   return (
     <>
       <Grid
@@ -197,6 +217,7 @@ const Header = () => {
                   <Button
                     sx={{ fontSize: "11px", minWidth: "90px", color: "black" }}
                     key={item.id}
+                    onClick={() => clickHeaderLeft(item.to)}
                   >
                     {item.name}
                   </Button>
@@ -254,7 +275,7 @@ const Header = () => {
               <SearchOutlinedIcon />
             </IconButton>
             <Button sx={{ color: "black", fontSize: "11px" }}>Cart</Button>
-            <Typography>1</Typography>
+            <Typography>{countCart}</Typography>
             <IconButton onClick={toggleDrawer(true)}>
               <DensityMediumRoundedIcon />
             </IconButton>

@@ -6,6 +6,9 @@ import bgImage from "../../assets/images/github-mark.svg";
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";
 import instance from "../../service/api";
+import { toggleSetReload } from "../../redux/slices/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 interface listProduct {
   id: number;
   name: string;
@@ -67,23 +70,27 @@ const Cart = () => {
     const upState = (id: number) => {
       setScount((prev) => ({
         ...prev,
-        [id]: (prev[id] || 0) + 1,
+        [id]: (prev[id] || 1) + 1,
       }));
     };
     const downState = (id: number) => {
       setScount((prev) => ({
         ...prev,
-        [id]: Math.max((prev[id] || 0) - 1, 0),
+        [id]: Math.max((prev[id] || 1) - 1, 0),
       }));
     };
 
     const [data, setData] = useState<listProduct[]>([]);
     const [statePrice, setStatePrice] = useState<Record<number, number>>({});
+    const stateCountRedux = useSelector(
+      (state: RootState) => state.appstate.reloadCart
+    );
     useEffect(() => {
       const getData = async () => {
         try {
-          const res = await instance.get("/product/all");
+          const res = await instance.get("/storage-cart/all");
           setData(res.data);
+          console.log(res.data);
           if (res.data) {
             const prices = res.data.reduce(
               (acc: Record<number, number>, product: listProduct) => {
@@ -99,10 +106,9 @@ const Cart = () => {
         }
       };
       getData();
-    }, []);
+    }, [stateCountRedux]);
 
     const [totalPrice, setTotalPrice] = useState<Record<number, number>>({}); // Tổng giá của các sản phẩm đã chọn
-
     useEffect(() => {
       const updatedTotalPrice: Record<number, number> = {}; // Tạo đối tượng mới để lưu tổng giá
       for (const id in scount) {
@@ -114,10 +120,40 @@ const Cart = () => {
     }, [scount, statePrice]);
 
     const [totalSumPrice, setTotalSumPrice] = useState(0);
-    // useEffect(() => {
-    //   const newTotal = totalPrice.reduce((acc, item) => acc + item.price, 0);
-    //   setTotalSumPrice(newTotal);
-    // }, [totalPrice]);
+    useEffect(() => {
+      const total = Object.values(totalPrice).reduce(
+        (acc, price) => acc + price,
+        0
+      );
+      setTotalSumPrice(total);
+    }, [totalPrice]);
+
+    const [dataID, setDataID] = useState(1);
+    const [testScount, setTestScount] = useState(1);
+    const dispatch = useDispatch();
+    const handleClickTest = async () => {
+      try {
+        const res = await instance.post("/storage-cart/add", {
+          productId: dataID, // Ép kiểu thành số nguyên
+          quantity: testScount,
+        });
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+      dispatch(toggleSetReload());
+    };
+    const handleDelete = async () => {
+      try {
+        const res = await instance.delete(
+          `/storage-cart/${1}` // Gửi tham số qua params
+        );
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+      dispatch(toggleSetReload());
+    };
 
     return (
       <Grid
@@ -154,6 +190,7 @@ const Cart = () => {
             >
               Browse More Tools
             </Link>
+            <Button onClick={handleClickTest}>CLick Here For Test</Button>
           </Box>
           {data.map((item) => {
             return (
@@ -216,11 +253,11 @@ const Cart = () => {
                         +
                       </Button>
                     </Box>
-                    <Typography>Total Price: {totalPrice}</Typography>
+                    <Typography>Total Price: {totalPrice[item.id]}</Typography>
                   </Box>
                 </Box>
                 <Box>
-                  <IconButton>
+                  <IconButton onClick={handleDelete}>
                     <DeleteOutlineOutlinedIcon />
                   </IconButton>
                 </Box>
